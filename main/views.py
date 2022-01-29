@@ -4,6 +4,7 @@ from django.views.generic import (
     ListView,
     DetailView,
     UpdateView,
+    CreateView,
 )
 from .models import Task
 
@@ -15,13 +16,24 @@ class TaskDetailView(DetailView):
     model = Task
     context_object_name = "task"
 
-class TaskUpdateView(UpdateView):
+class TaskCreateView(CreateView):
     model = Task
     fields = "__all__"
 
     def form_valid(self, form):
-        form = self.get_object()
         form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    fields = "__all__"
+
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    
         
 
 

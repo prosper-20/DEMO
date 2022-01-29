@@ -1,5 +1,6 @@
 import imp
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 class Task(models.Model):
@@ -18,6 +19,11 @@ class Task(models.Model):
     #     return reverse("detail", kwargs={
     #         'slug': self.slug
     #     })
+
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={
+            "slug": self.slug
+        })
 
     class Meta:
         ordering = ["completed"]
