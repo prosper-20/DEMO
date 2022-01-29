@@ -1,1 +1,3 @@
-<h2>Task</h2>
+{% for task in tasks %}
+<a href="{% url 'detail' task.slug %}">{{ task }}</a>
+{% endfor %}
