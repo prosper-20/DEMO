@@ -1,0 +1,3 @@
+{% for task in tasks %}
+<a href="{% url 'detail' task.slug %}">{{ task }}</a>
+{% endfor %}

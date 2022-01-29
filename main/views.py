@@ -9,6 +9,15 @@ from django.views.generic import (
 from .models import Task
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+def UserHomeView(self, request):
+    user = self.request.user
+    task = Task.objects.filter(user=user)
+    context = {
+        "task": task
+    }
+    return render(request, "main/user_tasks.html", context)
+
+
 class HomeView(ListView):
     model = Task
     context_object_name = "tasks"
