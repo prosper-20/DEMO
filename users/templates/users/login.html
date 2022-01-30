@@ -1,0 +1,17 @@
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Login Page</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn blue-gradient btn-sm" type="submit">Sign In</button>
+        </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need an account? <a href="{% url 'register' %}">Sign Up Here!</a>
+            </small>
+        </div>
+    </div>
