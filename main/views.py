@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
@@ -9,6 +9,8 @@ from django.views.generic import (
 )
 from .models import Task
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 # def UserHomeView(self, request, **kwargs):
 #     user = self.request.user
@@ -77,6 +79,21 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            messages.success(request, "Hi {username}, your account has been created successfully!")
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "main/register.html", context)
 
 
     
