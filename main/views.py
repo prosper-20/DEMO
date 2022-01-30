@@ -36,7 +36,7 @@ from django.contrib import messages
 
 def UserHomeView(self, request):
     user = self.request.user
-    task = Task.objects.filter(user=user.username)
+    task = Task.objects.filter(user=user)
     return render(request, "main/user_tasks.html")
 
 
