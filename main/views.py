@@ -23,21 +23,21 @@ from django.contrib import messages
 #     return render(request, "main/user_tasks.html", context)
 
 
-# class UserHomeView(ListView):
-#     model = Task
-#     template_name = "main/user_tasks.html"
-#     context_object_name = "tasks"
+class UserHomeView(ListView):
+    model = Task
+    template_name = "main/user_tasks.html"
+    context_object_name = "tasks"
 
 
-#     def get_queryset(self):
-#         user = get_object_or_404(User, username=self.kwargs.get("username"))
-#         return Task.objects.filter(user=user)
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get("username"))
+        return Task.objects.filter(user=user)
 
 
-def UserHomeView(self, request):
-    user = self.request.user
-    task = Task.objects.filter(user=user)
-    return render(request, "main/user_tasks.html")
+# def UserHomeView(self, request):
+#     user = self.request.user
+#     task = Task.objects.filter(user=user)
+#     return render(request, "main/user_tasks.html")
 
 
 
