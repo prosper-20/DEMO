@@ -23,7 +23,7 @@ from django.contrib import messages
 #     return render(request, "main/user_tasks.html", context)
 
 
-class UserHomeView(ListView):
+class UserHomeView(UserPassesTestMixin, ListView):
     model = Task
     template_name = "main/user_tasks.html"
     context_object_name = "tasks"
@@ -32,6 +32,12 @@ class UserHomeView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get("username"))
         return Task.objects.filter(user=user)
+
+    def test_func(self):
+        task = self.get_object()
+        if task.user == self.request.user:
+            return True
+        return False
 
 
 # def UserHomeView(self, request):
