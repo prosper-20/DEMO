@@ -1,4 +1,12 @@
 <h1>Tasks</h1>
+
+<form method="get">
+    <input type="text" name="search-area">
+    <input type="submit" value="Search">
+</form>
+
+
+<h2>{{ request.user }}</h2>
 {% for task in tasks %}
 <a href="{% url 'detail' task.slug %}">{{ task }}</a>
 {% endfor %}
