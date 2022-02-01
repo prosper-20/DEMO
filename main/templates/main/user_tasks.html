@@ -1,3 +1,4 @@
+<h2>Tasks for {{ view.kwargs.username }}</h2>
 {% for task in tasks %}
 <a href="{% url 'detail' task.slug %}">{{ task }}</a>
 {% endfor %}

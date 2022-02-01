@@ -51,7 +51,7 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
-    fields = "__all__"
+    fields = ["title", "description", "completed", "slug"]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -59,7 +59,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
-    fields = "__all__"
+    fields = ["title", "description", "completed", "slug"]
 
 
     def form_valid(self, form):
