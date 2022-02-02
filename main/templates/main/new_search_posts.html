@@ -5,17 +5,8 @@
     <input type="submit" value="Search">
 </form> -->
 
-<form action="{% url 'search_posts' %}" class="form-inline" method="post">
-    {% csrf_token %}
-    <div class="md-form my-0">
-      <input type="search" name="searched" class="form-control me-2"
-          placeholder="Search posts" aria-label="Search">
-          <button class="btn btn-outline-info btn-md" type="submit"><i class="fas fa-search" style="color: antiquewhite;"></i></button>
-    </div>
-  </form>
-
-
-<h2>{{ request.user }}</h2>
-{% for task in tasks %}
-<a href="{% url 'detail' task.slug %}">{{ task }}</a>
-{% endfor %}
+{% if serached %}
+  <h1 class="mt-5">You have searched for .....{{ searched }}</h1>
+  <br>
+  {% for task in tasks %}
+    {{}}
