@@ -5,8 +5,14 @@
     <input type="submit" value="Search">
 </form> -->
 
-{% if serached %}
+{% if searched %}
   <h1 class="mt-5">You have searched for .....{{ searched }}</h1>
   <br>
   {% for task in tasks %}
-    {{}}
+    {{ task.title }} - {{ task.description }}
+    <a href="{% url 'detail' task.slug %}">{{ task }}</a>
+  {% endfor %}
+  {% else %}
+  <h2>No result found in search</h2>
+
+  {% endif %}
