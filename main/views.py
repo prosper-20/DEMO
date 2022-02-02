@@ -1,3 +1,4 @@
+from re import template
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic import (
@@ -67,6 +68,7 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     fields = ["title", "description", "completed", "slug"]
+    template_name = "main/task_form_1.html"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -75,6 +77,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
     fields = ["title", "description", "completed", "slug"]
+    template_name = "main/task_form_1.html"
 
 
     def form_valid(self, form):
