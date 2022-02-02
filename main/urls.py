@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomeView, TaskDetailView, TaskUpdateView, TaskCreateView, UserHomeView
+from .views import HomeView, TaskDetailView, TaskUpdateView, TaskCreateView, UserHomeView, search_posts
 from . import views
 
 
@@ -8,5 +8,6 @@ urlpatterns = [
     path("detail/<slug>", TaskDetailView.as_view(), name="detail"),
     path("create/", TaskCreateView.as_view(), name="create"),
     path("update/<slug>/", TaskUpdateView.as_view(), name="update"),
-    path("user/<str:username>/", UserHomeView.as_view(), name="user_home")
+    path("user/<str:username>/", UserHomeView.as_view(), name="user_home"),
+    path("search_posts/", views.search_posts, name='search_posts'),
 ]

@@ -46,6 +46,14 @@ class UserHomeView(UserPassesTestMixin, ListView):
 #     return render(request, "main/user_tasks.html")
 
 
+def search_posts(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        # This returns the results of the user's search
+        tasks = Task.objects.filter(title__contains=searched)
+        return render(request, "main/new_search_posts.html", {'searched': searched, 'tasks': tasks})
+    else:
+        return render(request, "main/new_search_posts.html")
 
 class HomeView(ListView):
     model = Task
