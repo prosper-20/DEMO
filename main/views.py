@@ -96,7 +96,7 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         task = self.get_object()
-        if task.author == self.request.user:
+        if task.user == self.request.user:
             return True
         return False
 
