@@ -58,6 +58,7 @@ def search_posts(request):
 class HomeView(ListView):
     model = Task
     context_object_name = "tasks"
+    template_name = "main/task_list_1.html"
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
