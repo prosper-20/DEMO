@@ -1,3 +1,4 @@
+from distutils.log import Log
 from re import template
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.models import User
@@ -24,7 +25,7 @@ from django.contrib import messages
 #     return render(request, "main/user_tasks.html", context)
 
 
-class HomeView(UserPassesTestMixin, ListView):
+class UserHomeView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Task
     template_name = "main/user_tasks.html"
     context_object_name = "tasks"
@@ -41,12 +42,6 @@ class HomeView(UserPassesTestMixin, ListView):
         return False
 
 
-# def UserHomeView(self, request):
-#     user = self.request.user
-#     task = Task.objects.filter(user=user)
-#     return render(request, "main/user_tasks.html")
-
-
 def search_posts(request):
     if request.method == "POST":
         searched = request.POST['searched']
@@ -56,10 +51,10 @@ def search_posts(request):
     else:
         return render(request, "main/new_search_posts.html")
 
-# class HomeView(ListView):
-#     model = Task
-#     context_object_name = "tasks"
-#     template_name = "main/task_list_1.html"
+class HomeView(ListView):
+    model = Task
+    context_object_name = "tasks"
+    template_name = "main/task_list_1.html"
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
