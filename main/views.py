@@ -1,6 +1,7 @@
 from distutils.log import Log
 from re import template
 from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
@@ -15,6 +16,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.views.generic import View
 from users.forms import PositionForm
+from django.db import transaction
 
 # def UserHomeView(self, request, **kwargs):
 #     user = self.request.user
@@ -52,6 +54,22 @@ class HomeView(ListView):
     model = Task
     context_object_name = "tasks"
     template_name = "main/task_list_1.html"
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user)
+        context['count'] = context['tasks'].filter(completed=False).count()
+
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['tasks'] = context['tasks'].filter(
+                title__contains=search_input)
+
+        context['search_input'] = search_input
+
+        return context
+
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
@@ -107,7 +125,7 @@ class TaskReorder(View):
             with transaction.atomic():
                 self.request.user.set_task_order(positionList)
 
-        return redirect(reverse_lazy('tasks'))
+        return redirect(reverse_lazy('home'))
 
 
 

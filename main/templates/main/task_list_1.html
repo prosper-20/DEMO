@@ -10,35 +10,37 @@
     </div>
 
     {% if request.user.is_authenticated %}
-    <a href="{% url 'logout' %}">Logout</a> {% else %}
-    <a href="{% url 'login' %}">Login</a> {% endif %}
+    <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
 </div>
 
 
 <div id="search-add-wrapper">
-    <!-- <form method="GET" style="display: flex;">
+    <form method="GET" style="display: flex;">
         <input type='text' name='search-area' placeholder="Search your task" value="{{search_input}}">
         <input class="button" type="submit" value='Search'>
-    </form> -->
-    <form action="{% url 'search_posts' %}" class="form-inline" method="post">
+    </form>
+    <!-- <form action="{% url 'search_posts' %}" class="form-inline" method="post">
         {% csrf_token %}
         <div class="md-form my-0">
           <input type="search" name="searched" class="form-control me-2"
               placeholder="Search posts" aria-label="Search">
               <button class="btn btn-outline-info btn-md" type="submit"><i class="fas fa-search" style="color: antiquewhite;"></i></button>
         </div>
-      </form>
+      </form> -->
     {% if tasks|length > 0 %}
     <a id="add-link" href="{% url 'create' %}">&#x2b;</a>
     {% endif %}
 </div>
 
 
-<!-- Hidden form. Form submits new item positions -->
-<!-- <form style="display: none;" id="reorderForm" method="post">
+<!-- <Hidden form. Form submits new item positions --> 
+ <form style="display: none;" id="reorderForm" method="post">
     {% csrf_token %}
     <input type="hidden" id="positionInput" name="position">
-</form> -->
+</form>
 
 
 

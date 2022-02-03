@@ -15,15 +15,10 @@ class Task(models.Model):
     def __str__(self):
         return self.title 
 
-    # def get_absolute_url(self):
-    #     return reverse("detail", kwargs={
-    #         'slug': self.slug
-    #     })
-
     def get_absolute_url(self):
         return reverse("detail", kwargs={
             "slug": self.slug
         })
 
     class Meta:
-        ordering = ["completed"]
+        order_with_respect_to = 'user'
