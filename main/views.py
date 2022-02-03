@@ -13,6 +13,8 @@ from .models import Task
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.views.generic import View
+from users.forms import PositionForm
 
 # def UserHomeView(self, request, **kwargs):
 #     user = self.request.user
@@ -25,7 +27,7 @@ from django.contrib import messages
 #     return render(request, "main/user_tasks.html", context)
 
 
-class UserHomeView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class UserHomeView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "main/user_tasks.html"
     context_object_name = "tasks"
@@ -35,11 +37,6 @@ class UserHomeView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         user = get_object_or_404(User, username=self.kwargs.get("username"))
         return Task.objects.filter(user=user)
 
-    def test_func(self):
-        task = self.get_object()
-        if task.user == self.request.user:
-            return True
-        return False
 
 
 def search_posts(request):
@@ -98,6 +95,19 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if task.user == self.request.user:
             return True
         return False
+
+
+class TaskReorder(View):
+    def post(self, request):
+        form = PositionForm(request.POST)
+
+        if form.is_valid():
+            positionList = form.cleaned_data["position"].split(',')
+
+            with transaction.atomic():
+                self.request.user.set_task_order(positionList)
+
+        return redirect(reverse_lazy('tasks'))
 
 
 

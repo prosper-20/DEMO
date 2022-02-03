@@ -12,4 +12,7 @@ class UserRegisterForm(UserCreationForm):
 
         fields = ["username", "email", "password1", "password2"]
 
-        
+
+
+class PositionForm(forms.Form):
+    position = forms.CharField()
