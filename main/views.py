@@ -24,7 +24,7 @@ from django.contrib import messages
 #     return render(request, "main/user_tasks.html", context)
 
 
-class UserHomeView(UserPassesTestMixin, ListView):
+class HomeView(UserPassesTestMixin, ListView):
     model = Task
     template_name = "main/user_tasks.html"
     context_object_name = "tasks"
@@ -56,10 +56,10 @@ def search_posts(request):
     else:
         return render(request, "main/new_search_posts.html")
 
-class HomeView(ListView):
-    model = Task
-    context_object_name = "tasks"
-    template_name = "main/task_list_1.html"
+# class HomeView(ListView):
+#     model = Task
+#     context_object_name = "tasks"
+#     template_name = "main/task_list_1.html"
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
